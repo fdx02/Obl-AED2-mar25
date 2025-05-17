@@ -10,6 +10,7 @@ public class main {
         Viajero v3 = new Viajero("37489274", "hexe", "santuario@gmail.com", 43, Categoria.PLATINO);
         Viajero v4 = new Viajero("12364365", "calpheon", "choice@gmail.com", 30, Categoria.ESTANDAR);
         Viajero v5 = new Viajero("48934879", "Rondro", "choice@gmail.com", 31, Categoria.PLATINO);
+        Viajero v6 = new Viajero("90423849", "Carrusel", "choice@gmail.com", 31, Categoria.PLATINO);
         arbol.insertar(v1);
         arbol.insertar(v2);
         arbol.insertar(v3);

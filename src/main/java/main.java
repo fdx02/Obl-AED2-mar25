@@ -11,11 +11,14 @@ public class main {
         Viajero v4 = new Viajero("12364365", "calpheon", "choice@gmail.com", 30, Categoria.ESTANDAR);
         Viajero v5 = new Viajero("48934879", "Rondro", "choice@gmail.com", 31, Categoria.PLATINO);
         Viajero v6 = new Viajero("90423849", "Carrusel", "choice@gmail.com", 31, Categoria.PLATINO);
+        Viajero v7 = new Viajero("54982379", "madozito", "asdsd@gmail.com", 31, Categoria.ESTANDAR);
         arbol.insertar(v1);
         arbol.insertar(v2);
         arbol.insertar(v3);
         arbol.insertar(v4);
         arbol.insertar(v5);
+        arbol.insertar(v6);
+        arbol.insertar(v7);
         arbol.listarAscendente();
     }
 }

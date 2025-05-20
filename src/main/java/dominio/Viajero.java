@@ -2,13 +2,15 @@ package dominio;
 
 import interfaz.Categoria;
 
+import java.util.Objects;
+
 public class Viajero implements Comparable<Viajero> {
     private String cedula;
     private String nombre;
     private String correo;
     private int edad;
     private Categoria categoria;
-
+    private int conteo;
     public Viajero() {
     }
 
@@ -18,6 +20,7 @@ public class Viajero implements Comparable<Viajero> {
         this.correo = CORREO;
         this.edad = EDAD;
         this.categoria = CATEGORIA;
+        this.conteo = 0;
     }
 
     public Viajero(String CEDULA){
@@ -34,12 +37,43 @@ public class Viajero implements Comparable<Viajero> {
 
     @Override
     public String toString() {
-        return "Viajero{" +
-                "cedula='" + cedula + '\'' +
-                ", nombre='" + nombre + '\'' +
-                ", correo='" + correo + '\'' +
-                ", edad=" + edad +
-                ", categoria=" + categoria +
-                '}';
+        return cedula + ";" + nombre + ";" + correo + ";" + edad + ";" + categoria;
+        //“cedula;nombre;correo;edad;categoria”
+    }
+
+    public int getConteo() {
+        return conteo;
+    }
+
+    public void setConteo(int conteo) {
+        this.conteo = conteo;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (o == null || getClass() != o.getClass()) return false;
+        Viajero viajero = (Viajero) o;
+        return Objects.equals(cedula, viajero.cedula);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hashCode(cedula);
+    }
+
+    public String getCedula() {
+        return cedula;
+    }
+
+    public void setCedula(String cedula) {
+        this.cedula = cedula;
+    }
+
+    public String getCorreo() {
+        return correo;
+    }
+
+    public void setCorreo(String correo) {
+        this.correo = correo;
     }
 }

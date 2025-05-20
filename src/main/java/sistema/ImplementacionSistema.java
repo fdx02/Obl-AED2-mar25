@@ -6,7 +6,6 @@ import tads.ABBImp;
 
 public class ImplementacionSistema implements Sistema  {
     private ABBImp<Viajero> viajeros;
-    //HACER COMPARADOR
 
     @Override
     public Retorno inicializarSistema(int maxCiudades) {
@@ -28,10 +27,10 @@ public class ImplementacionSistema implements Sistema  {
         if (edad <= 0 || edad >= 139){
             return Retorno.error4("");
         }
-        if (viajeros.existe(new Viajero(cedula))) {
+        if (!viajeros.existe(new Viajero(cedula))) {
             return Retorno.error5("");
         }
-        if (viajeros.existe(new Viajero(correo, edad))) {
+        if (!viajeros.existe(new Viajero(correo, edad))) { 
             return Retorno.error6("");
         }
         viajeros.insertar(new Viajero(cedula,nombre,correo,edad,categoria));

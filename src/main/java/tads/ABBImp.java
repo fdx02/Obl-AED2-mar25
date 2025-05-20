@@ -1,9 +1,14 @@
 package tads;
 
+
+import java.util.Comparator;
+
 public class ABBImp<T extends Comparable<T>> implements ABB<T> {
     public NodoABB<T> raiz;
+    private Comparator<T> comp;
 
-    public ABBImp() {
+    public ABBImp(Comparator<T> comp) {
+        this.comp = comp;
     }
 
     public void insertar(T DATO) {
@@ -15,14 +20,8 @@ public class ABBImp<T extends Comparable<T>> implements ABB<T> {
 
     }
 
-    @Override
-    public boolean existe(T DATO) {
-        //implementar
-        return true;
-    }
-
     private void insertarRec(NodoABB<T> NODO, T DATO) {
-        if (DATO.compareTo(NODO.getDato()) > 0) {
+        if (comp.compare(NODO.getDato(), DATO) > 0) { //if (DATO.compareTo(NODO.getDato()) > 0) {
             if (NODO.getDer() == null) {
                 NODO.setDer(new NodoABB(DATO));
             } else {
@@ -34,6 +33,41 @@ public class ABBImp<T extends Comparable<T>> implements ABB<T> {
             this.insertarRec(NODO.getIzq(), DATO);
         }
 
+    }
+
+    @Override
+    public boolean existe(T DATO) {
+        return existeRec(raiz, DATO);
+    }
+    private boolean existeRec(NodoABB<T> NODO, T DATO) {
+        if (NODO != null) {
+            if (comp.compare(NODO.getDato(), DATO) == 0) {
+                return true;
+            } else {
+                if (comp.compare(NODO.getDato(), DATO) > 0) {
+                    return existeRec(NODO.getDer(), DATO);
+                } else {
+                    return existeRec(NODO.getIzq(), DATO);
+                }
+            }
+        }
+        return false;
+    }
+
+    @Override
+    public String buscarPorDato(String DATO) {
+        return null;
+    }
+
+    private retornoPer buscarPorDatoRec (NodoABB<T> NODO, String DATO, int conteo) {
+        if (NODO != null) {;
+            if (NODO.getDato().equals(DATO)) {
+                return new retornoPer(conteo, NODO.getDato().toString());
+            } else {
+               // if (comp.compare(NODO.getDato(), DATO)) // incompleto
+            }
+        }
+        return null;
     }
 
     public void listarAscendente() {
@@ -48,4 +82,15 @@ public class ABBImp<T extends Comparable<T>> implements ABB<T> {
         }
 
     }
+
+
+    class retornoPer {
+        public int conteo;
+        public String dato;
+        retornoPer(int conteo, String dato) {
+            this.conteo = conteo;
+            this.dato = dato;
+        }
+    }
+
 }

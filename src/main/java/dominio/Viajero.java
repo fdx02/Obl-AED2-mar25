@@ -37,7 +37,7 @@ public class Viajero implements Comparable<Viajero> {
 
     @Override
     public String toString() {
-        return cedula + ";" + nombre + ";" + correo + ";" + edad + ";" + categoria;
+        return cedula + ";" + nombre + ";" + correo + ";" + edad + ";" + categoria.getTexto();
         //“cedula;nombre;correo;edad;categoria”
     }
 

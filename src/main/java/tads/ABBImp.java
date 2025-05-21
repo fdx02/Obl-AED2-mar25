@@ -21,7 +21,7 @@ public class ABBImp<T extends Comparable<T>> implements ABB<T> {
     }
 
     private void insertarRec(NodoABB<T> NODO, T DATO) {
-        if (comp.compare(NODO.getDato(), DATO) > 0) { //if (DATO.compareTo(NODO.getDato()) > 0) {
+        if (comp.compare(NODO.getDato(), DATO) < 0) {
             if (NODO.getDer() == null) {
                 NODO.setDer(new NodoABB(DATO));
             } else {
@@ -54,43 +54,82 @@ public class ABBImp<T extends Comparable<T>> implements ABB<T> {
         return false;
     }
 
+
     @Override
-    public String buscarPorDato(String DATO) {
-        return null;
+    public String buscarPorDato(T DATO) {
+        return buscarPorDatoRec(raiz, DATO);
     }
 
-    private retornoPer buscarPorDatoRec (NodoABB<T> NODO, String DATO, int conteo) {
+    private String buscarPorDatoRec (NodoABB<T> NODO, T DATO) {
         if (NODO != null) {;
-            if (NODO.getDato().equals(DATO)) {
-                return new retornoPer(conteo, NODO.getDato().toString());
+            if (comp.compare(NODO.getDato(), DATO) == 0) {
+                return NODO.getDato().toString();
             } else {
-               // if (comp.compare(NODO.getDato(), DATO)) // incompleto
+               if (comp.compare(NODO.getDato(), DATO) < 0){
+                   return buscarPorDatoRec(NODO.getDer(), DATO);
+               } else {
+                   return buscarPorDatoRec(NODO.getIzq(), DATO);
+               }
             }
         }
-        return null;
+        return "";
     }
 
-    public void listarAscendente() {
-        this.listarAscendenteRec(this.raiz);
+    @Override
+    public int buscarPorDatoCant(T DATO) {
+        return buscarPorDatoCantRec(raiz, DATO, 1);
     }
 
-    private void listarAscendenteRec(NodoABB<T> NODO) {
-        if (NODO != null) {
-            this.listarAscendenteRec(NODO.getIzq());
-            System.out.println((NODO.getDato()).toString());
-            this.listarAscendenteRec(NODO.getDer());
+    private int buscarPorDatoCantRec (NodoABB<T> NODO, T DATO, int CONT) {
+        if (NODO != null) {;
+            if (comp.compare(NODO.getDato(), DATO) == 0) {
+                return CONT;
+            } else {
+                if (comp.compare(NODO.getDato(), DATO) < 0){
+                    return buscarPorDatoCantRec(NODO.getDer(), DATO, CONT + 1);
+                } else {
+                    return buscarPorDatoCantRec(NODO.getIzq(), DATO, CONT + 1);
+                }
+            }
         }
-
+        return 0;
     }
 
 
-    class retornoPer {
-        public int conteo;
-        public String dato;
-        retornoPer(int conteo, String dato) {
-            this.conteo = conteo;
-            this.dato = dato;
+
+
+    public String listarAscendente() {
+        return listarAscendenteRec(this.raiz);
+    }
+
+    private String listarAscendenteRec(NodoABB<T> NODO) {
+        if (NODO == null) {
+            return "";
         }
+        return listarAscendenteRec(NODO.getIzq()) + NODO.getDato().toString() + listarAscendenteRec(NODO.getDer());
     }
+
+    public String listarDesc() {
+        return listarDescRec(this.raiz);
+    }
+
+    private String listarDescRec(NodoABB<T> NODO) {
+        if (NODO == null) {
+            return "";
+        }
+        return listarDescRec(NODO.getIzq()) + NODO.getDato().toString() + listarAscendenteRec(NODO.getDer());
+    }
+
+
+
+
+//    class retornoPer {
+//        public int conteo;
+//        public String dato;
+//        retornoPer(int conteo, String dato) {
+//            this.conteo = conteo;
+//            this.dato = dato;
+//        }
+//    }
 
 }

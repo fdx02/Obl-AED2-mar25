@@ -76,19 +76,18 @@ public class ImplementacionSistema implements Sistema  {
 
     @Override
     public Retorno listarViajerosPorCedulaDescendente() {
-        return Retorno.noImplementada();
+        return Retorno.ok(viajerosCedula.listarDesc());
     }
 
     @Override
     public Retorno listarViajerosPorCorreoAscendente() {
-        return Retorno.noImplementada();
+        return Retorno.ok(viajerosMail.listarAscendente());
     }
 
     @Override
     public Retorno listarViajerosPorCategoria(Categoria unaCategoria) {
-        return Retorno.noImplementada();
+        return Retorno.ok(viajerosCedula.listarCondicion(new Viajero(unaCategoria.getTexto())));
     }
-
     @Override
     public Retorno listarViajerosDeUnRangoAscendente(int rango) {
         return Retorno.noImplementada();

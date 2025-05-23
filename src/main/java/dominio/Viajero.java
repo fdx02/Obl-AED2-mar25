@@ -30,11 +30,18 @@ public class Viajero implements Comparable<Viajero> {
     public Viajero(String CORREO, int EDAD){
         this.correo = CORREO;
     }
-
-    public int compareTo(Viajero o) {
-        return this.cedula.compareTo(o.cedula);
+    public Viajero(Categoria CATEGORIA){
+        this.categoria = CATEGORIA;
+    }
+    public Viajero(int RANGO){
+        this.edad = RANGO;
     }
 
+    public int compareTo(Viajero o) {
+        return this.categoria.getTexto().compareTo(o.categoria.getTexto());
+    }
+
+    //ARREGLAR EL TOSTRING PORQUE SE ROMPE EN LISTAS
     @Override
     public String toString() {
         return cedula + ";" + nombre + ";" + correo + ";" + edad + ";" + categoria.getTexto();
@@ -76,4 +83,13 @@ public class Viajero implements Comparable<Viajero> {
     public void setCorreo(String correo) {
         this.correo = correo;
     }
+
+    public int getEdad() {
+        return edad;
+    }
+
+    public void setEdad(int edad) {
+        this.edad = edad;
+    }
+
 }

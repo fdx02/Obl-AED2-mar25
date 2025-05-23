@@ -32,7 +32,6 @@ public class ABBImp<T extends Comparable<T>> implements ABB<T> {
         } else {
             this.insertarRec(NODO.getIzq(), DATO);
         }
-
     }
 
     @Override
@@ -120,6 +119,44 @@ public class ABBImp<T extends Comparable<T>> implements ABB<T> {
         return listarDescRec(NODO.getIzq()) + NODO.getDato().toString() + listarAscendenteRec(NODO.getDer());
     }
 
+    public String listarCondicion(T DATO) {
+        return listarCondicionRec(this.raiz, DATO);
+    }
+
+    //ARREGLAR EL TOSTRING PORQUE SE ROMPE EN LISTAS
+    //ARREGLAR EL TOSTRING PORQUE SE ROMPE EN LISTAS
+    //ARREGLAR EL TOSTRING PORQUE SE ROMPE EN LISTAS
+    //ARREGLAR EL TOSTRING PORQUE SE ROMPE EN LISTAS (QUEDA UNA PARTE SIN SEPARACION)
+    public String listarCondicionRec(NodoABB<T> NODO, T DATO){
+        if (NODO == null){
+            return "";
+        }
+        if (NODO.getDato().compareTo(DATO) == 0) {
+            return listarCondicionRec(NODO.getIzq(), DATO) + NODO.getDato().toString() + listarCondicionRec(NODO.getDer(), DATO);
+        }
+        return listarCondicionRec(NODO.getIzq(), DATO) + listarCondicionRec(NODO.getDer(), DATO);
+    }
+
+    public String listarNumero(T DATO, Comparator<T> COMP) {
+        Comparator<T> temp = this.comp;
+        cambiarComparador(COMP);
+        String retorno = listarNumeroRec(this.raiz, DATO);
+        cambiarComparador(temp);
+        return retorno;
+    }
+    private String listarNumeroRec(NodoABB<T> NODO, T DATO){
+        if (NODO == null) {
+            return "";
+        }
+        if (comp.compare(NODO.getDato(), DATO) == 0) {
+            return listarNumeroRec(NODO.getIzq(), DATO) + NODO.getDato().toString() + listarNumeroRec(NODO.getDer(), DATO);
+        }
+        return listarNumeroRec(NODO.getIzq(), DATO) + listarNumeroRec(NODO.getDer(), DATO);
+    }
+
+    private void cambiarComparador(Comparator<T> COMP){
+        this.comp = COMP;
+    }
 
 
 

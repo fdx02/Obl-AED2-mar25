@@ -122,7 +122,4 @@ public class Test03BuscarViajero {
         assertEquals(Retorno.Resultado.ERROR_3, retorno.getResultado());
     }
 
-
-
-
 }

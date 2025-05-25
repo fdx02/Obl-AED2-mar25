@@ -7,6 +7,9 @@ import java.util.Comparator;
 public class ComparadorViajeroRango implements Comparator<Viajero> {
     @Override
     public int compare(Viajero VIAJERO, Viajero RANGO) {
+//        if (RANGO == null || RANGO.getEdad() < 0 ){
+//            return 1;
+//        }
         if (RANGO.getEdad() == 0 && VIAJERO.getEdad() >= 0 && VIAJERO.getEdad() <= 9){
             return 0;
         }

@@ -44,7 +44,7 @@ public class Viajero implements Comparable<Viajero> {
     //ARREGLAR EL TOSTRING PORQUE SE ROMPE EN LISTAS
     @Override
     public String toString() {
-        return cedula + ";" + nombre + ";" + correo + ";" + edad + ";" + categoria.getTexto();
+        return cedula + ";" + nombre + ";" + correo + ";" + edad + ";" + categoria.getTexto() + "|";
         //“cedula;nombre;correo;edad;categoria”
     }
 

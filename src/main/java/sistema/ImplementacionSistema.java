@@ -58,16 +58,17 @@ public class ImplementacionSistema implements Sistema  {
 
     @Override
     public Retorno buscarViajeroPorCorreo(String correo) {
-        if (correo == null || correo.isEmpty()) {
+        if (correo == null || correo.trim().isEmpty()) {
             return Retorno.error1("");
         }
         if (!correo.matches("^[A-Za-z0-9+_.-]+@[A-Za-z0-9.-]+$")){
             return Retorno.error2("");
         }
-        if (!viajerosMail.existe(new Viajero(correo))) {
+        if(viajerosMail.existe(new Viajero(correo, 0))) {
+            return Retorno.ok(viajerosMail.buscarPorDatoCant(new Viajero(correo, 0)), viajerosMail.buscarPorDato(new Viajero(correo, 0)));
+        } else {
             return Retorno.error3("");
         }
-        return Retorno.ok(viajerosMail.buscarPorDatoCant(new Viajero(correo, 0)), viajerosMail.buscarPorDato(new Viajero(correo, 0)));
     }
 
     @Override
@@ -87,11 +88,17 @@ public class ImplementacionSistema implements Sistema  {
 
     @Override
     public Retorno listarViajerosPorCategoria(Categoria unaCategoria) {
-        return Retorno.ok(viajerosCedula.listarCondicion(new Viajero(unaCategoria.getTexto())));
+        return Retorno.ok(viajerosCedula.listarCondicion(new Viajero(unaCategoria)));
     }
     @Override
     public Retorno listarViajerosDeUnRangoAscendente(int rango) {
-        return Retorno.noImplementada();
+        if (rango < 0){
+            return Retorno.error1("");
+        }
+        if (rango > 13){
+            return Retorno.error2("");
+        }
+        return Retorno.ok(viajerosCedula.listarComparador(new Viajero(rango), new ComparadorViajeroRango()));
     }
 
     @Override

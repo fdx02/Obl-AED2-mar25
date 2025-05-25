@@ -56,7 +56,12 @@ public class ABBImp<T extends Comparable<T>> implements ABB<T> {
 
     @Override
     public String buscarPorDato(T DATO) {
-        return buscarPorDatoRec(raiz, DATO);
+        String retorno = buscarPorDatoRec(raiz, DATO);
+        if (retorno.isEmpty()){
+            return retorno;
+        } else {
+            return retorno.substring(0, retorno.length() - 1);
+        }
     }
 
     private String buscarPorDatoRec (NodoABB<T> NODO, T DATO) {
@@ -98,7 +103,12 @@ public class ABBImp<T extends Comparable<T>> implements ABB<T> {
 
 
     public String listarAscendente() {
-        return listarAscendenteRec(this.raiz);
+        String retorno = listarAscendenteRec(this.raiz);
+        if (retorno.isEmpty()){
+            return retorno;
+        } else {
+            return retorno.substring(0, retorno.length() - 1);
+        }
     }
 
     private String listarAscendenteRec(NodoABB<T> NODO) {
@@ -109,25 +119,33 @@ public class ABBImp<T extends Comparable<T>> implements ABB<T> {
     }
 
     public String listarDesc() {
-        return listarDescRec(this.raiz);
+        String retorno = listarDescRec(this.raiz);
+        if (retorno.isEmpty()){
+            return retorno;
+        } else {
+            return retorno.substring(0, retorno.length() - 1);
+        }
+
     }
 
     private String listarDescRec(NodoABB<T> NODO) {
         if (NODO == null) {
             return "";
         }
-        return listarDescRec(NODO.getIzq()) + NODO.getDato().toString() + listarAscendenteRec(NODO.getDer());
+        return listarDescRec(NODO.getDer()) + NODO.getDato().toString() + listarAscendenteRec(NODO.getIzq());
     }
 
     public String listarCondicion(T DATO) {
-        return listarCondicionRec(this.raiz, DATO);
+        String retorno = listarCondicionRec(this.raiz, DATO);
+        if (retorno.isEmpty()){
+            return retorno;
+        } else {
+            return retorno.substring(0, retorno.length() - 1);
+        }
     }
 
-    //ARREGLAR EL TOSTRING PORQUE SE ROMPE EN LISTAS
-    //ARREGLAR EL TOSTRING PORQUE SE ROMPE EN LISTAS
-    //ARREGLAR EL TOSTRING PORQUE SE ROMPE EN LISTAS
-    //ARREGLAR EL TOSTRING PORQUE SE ROMPE EN LISTAS (QUEDA UNA PARTE SIN SEPARACION)
-    public String listarCondicionRec(NodoABB<T> NODO, T DATO){
+
+    private String listarCondicionRec(NodoABB<T> NODO, T DATO){
         if (NODO == null){
             return "";
         }
@@ -137,12 +155,16 @@ public class ABBImp<T extends Comparable<T>> implements ABB<T> {
         return listarCondicionRec(NODO.getIzq(), DATO) + listarCondicionRec(NODO.getDer(), DATO);
     }
 
-    public String listarNumero(T DATO, Comparator<T> COMP) {
+    public String listarComparador(T DATO, Comparator<T> COMP) {
         Comparator<T> temp = this.comp;
         cambiarComparador(COMP);
         String retorno = listarNumeroRec(this.raiz, DATO);
         cambiarComparador(temp);
-        return retorno;
+        if (retorno.isEmpty()){
+            return retorno;
+        } else {
+            return retorno.substring(0, retorno.length() - 1);
+        }
     }
     private String listarNumeroRec(NodoABB<T> NODO, T DATO){
         if (NODO == null) {

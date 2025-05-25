@@ -25,8 +25,14 @@ public class main {
         arbol.insertar(v5);
         arbol.insertar(v6);
         arbol.insertar(v7);
-        System.out.println(arbol.listarNumero(new Viajero(3), new ComparadorViajeroRango()));
-        System.out.println("------------------------------");
+//        System.out.println(arbol.listarNumero(new Viajero(3), new ComparadorViajeroRango()));
+//        System.out.println("------------------------------");
+        String cedula = "1.234.567-8";
+        String soloNumeros = cedula.replaceAll("\\D", "");
+        System.out.println(soloNumeros); // Imprime: 12345678
+
+
+
 //      arbol.listarDesc();
 //      System.out.println(arbol.existe(v9));
 //        System.out.println("------------------------------");

@@ -18,7 +18,7 @@ public class ImplementacionSistema implements Sistema  {
 
     @Override
     public Retorno registrarViajero(String cedula, String nombre, String correo, int edad, Categoria categoria) {
-        if (cedula == null || cedula.isEmpty() || nombre == null || nombre.isEmpty() || correo == null || correo.isEmpty() || categoria == null) {
+        if (cedula == null || cedula.trim().isEmpty() || nombre == null || nombre.trim().isEmpty() || correo == null || correo.trim().isEmpty() || categoria == null) {
             return Retorno.error1("");
         }
         if (!cedula.matches("^\\d{1}\\.\\d{3}\\.\\d{3}-\\d$|^\\d{3}\\.\\d{3}-\\d$")){
@@ -43,16 +43,17 @@ public class ImplementacionSistema implements Sistema  {
 
     @Override
     public Retorno buscarViajeroPorCedula(String cedula) {
-        if (cedula == null || cedula.isEmpty()) {
+        if (cedula == null || cedula.trim().isEmpty()) {
             return Retorno.error1("");
         }
         if (!cedula.matches("^\\d{1}\\.\\d{3}\\.\\d{3}-\\d$|^\\d{3}\\.\\d{3}-\\d$")){
             return Retorno.error2("");
         }
-        if (!viajerosCedula.existe(new Viajero(cedula))) {
+        if (viajerosCedula.existe(new Viajero(cedula))) {
+            return Retorno.ok(viajerosCedula.buscarPorDatoCant(new Viajero(cedula)), viajerosCedula.buscarPorDato(new Viajero(cedula)));
+        } else {
             return Retorno.error3("");
         }
-        return Retorno.ok(viajerosCedula.buscarPorDatoCant(new Viajero(cedula)), viajerosCedula.buscarPorDato(new Viajero(cedula)));
     }
 
     @Override

@@ -43,7 +43,7 @@ public class ABBImp<T extends Comparable<T>> implements ABB<T> {
             if (comp.compare(NODO.getDato(), DATO) == 0) {
                 return true;
             } else {
-                if (comp.compare(NODO.getDato(), DATO) > 0) {
+                if (comp.compare(NODO.getDato(), DATO) < 0) {
                     return existeRec(NODO.getDer(), DATO);
                 } else {
                     return existeRec(NODO.getIzq(), DATO);

@@ -14,6 +14,7 @@ public class Viajero implements Comparable<Viajero> {
     public Viajero() {
     }
 
+
     public Viajero(String CEDULA, String NOMBRE, String CORREO, int EDAD, Categoria CATEGORIA) {
         this.cedula = CEDULA;
         this.nombre = NOMBRE;
@@ -92,4 +93,11 @@ public class Viajero implements Comparable<Viajero> {
         this.edad = edad;
     }
 
+    public Categoria getCategoria() {
+        return categoria;
+    }
+
+    public void setCategoria(Categoria categoria) {
+        this.categoria = categoria;
+    }
 }

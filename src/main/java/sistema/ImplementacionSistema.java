@@ -8,11 +8,13 @@ import tads.ABBImp;
 public class ImplementacionSistema implements Sistema  {
     private ABBImp<Viajero> viajerosCedula;
     private ABBImp<Viajero> viajerosMail;
+    private ABBImp<Viajero> viajerosCategoria;
 
     @Override
     public Retorno inicializarSistema(int maxCiudades) {
         viajerosCedula = new ABBImp<Viajero>(new ComparadorViajeroCedula());
         viajerosMail = new ABBImp<Viajero>(new ComparadorViajeroMail());
+        viajerosCategoria = new ABBImp<Viajero>(new ComparadorViajeroCategoria());
         return Retorno.noImplementada();
     }
 
@@ -38,6 +40,7 @@ public class ImplementacionSistema implements Sistema  {
         }
         viajerosCedula.insertar(new Viajero(cedula,nombre,correo,edad,categoria));
         viajerosMail.insertar(new Viajero(cedula,nombre,correo,edad,categoria));
+        viajerosCategoria.insertar(new Viajero(cedula,nombre,correo,edad,categoria));
         return Retorno.ok();
     }
 

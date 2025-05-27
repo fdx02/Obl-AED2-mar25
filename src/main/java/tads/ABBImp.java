@@ -136,7 +136,7 @@ public class ABBImp<T extends Comparable<T>> implements ABB<T> {
     }
 
     public String listarCondicion(T DATO) {
-        String retorno = listarCondicionRec(this.raiz, DATO);
+        String retorno = listarCondicionRecV2(this.raiz, DATO);
         if (retorno.isEmpty()){
             return retorno;
         } else {
@@ -145,14 +145,27 @@ public class ABBImp<T extends Comparable<T>> implements ABB<T> {
     }
 
 
-    private String listarCondicionRec(NodoABB<T> NODO, T DATO){
+//    private String listarCondicionRec(NodoABB<T> NODO, T DATO){
+//        if (NODO == null){
+//            return "";
+//        }
+//        if (NODO.getDato().compareTo(DATO) == 0) {
+//            return listarCondicionRec(NODO.getIzq(), DATO) + NODO.getDato().toString() + listarCondicionRec(NODO.getDer(), DATO);
+//        }
+//        return listarCondicionRec(NODO.getIzq(), DATO) + listarCondicionRec(NODO.getDer(), DATO);
+//    }
+
+    private String listarCondicionRecV2(NodoABB<T> NODO, T DATO){
         if (NODO == null){
             return "";
         }
-        if (NODO.getDato().compareTo(DATO) == 0) {
-            return listarCondicionRec(NODO.getIzq(), DATO) + NODO.getDato().toString() + listarCondicionRec(NODO.getDer(), DATO);
+        if (comp.compare(NODO.getDato(), DATO) == 0) {
+            return listarCondicionRecV2(NODO.getIzq(), DATO) + NODO.getDato().toString();
+        } else if (comp.compare(NODO.getDato(), DATO) < 0){
+            return listarCondicionRecV2(NODO.getDer(), DATO);
+        } else {
+            return listarCondicionRecV2(NODO.getIzq(), DATO);
         }
-        return listarCondicionRec(NODO.getIzq(), DATO) + listarCondicionRec(NODO.getDer(), DATO);
     }
 
     public String listarComparador(T DATO, Comparator<T> COMP) {

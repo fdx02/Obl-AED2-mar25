@@ -4,18 +4,24 @@ import comparadores.*;
 import dominio.Viajero;
 import interfaz.*;
 import tads.ABBImp;
+import tads.GrafoImp;
 
 public class ImplementacionSistema implements Sistema  {
     private ABBImp<Viajero> viajerosCedula;
     private ABBImp<Viajero> viajerosMail;
     private ABBImp<Viajero> viajerosCategoria;
+    private GrafoImp grafoCiudades;
 
     @Override
     public Retorno inicializarSistema(int maxCiudades) {
         viajerosCedula = new ABBImp<Viajero>(new ComparadorViajeroCedula());
         viajerosMail = new ABBImp<Viajero>(new ComparadorViajeroMail());
         viajerosCategoria = new ABBImp<Viajero>(new ComparadorViajeroCategoria());
-        return Retorno.noImplementada();
+        grafoCiudades = new GrafoImp(maxCiudades);
+        if (maxCiudades <= 4) {
+            return Retorno.error1("");
+        }
+        return Retorno.ok();
     }
 
     @Override

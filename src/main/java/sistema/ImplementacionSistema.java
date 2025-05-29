@@ -17,7 +17,7 @@ public class ImplementacionSistema implements Sistema  {
         viajerosCedula = new ABBImp<Viajero>(new ComparadorViajeroCedula());
         viajerosMail = new ABBImp<Viajero>(new ComparadorViajeroMail());
         viajerosCategoria = new ABBImp<Viajero>(new ComparadorViajeroCategoria());
-        grafoCiudades = new GrafoImp(maxCiudades);
+        grafoCiudades = new GrafoImp(maxCiudades, true);
         if (maxCiudades <= 4) {
             return Retorno.error1("");
         }

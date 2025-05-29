@@ -10,6 +10,8 @@ public class ComparadorViajeroRango implements Comparator<Viajero> {
 //        if (RANGO == null || RANGO.getEdad() < 0 ){
 //            return 1;
 //        }
+        int div = RANGO.getEdad();
+
         if (RANGO.getEdad() == 0 && VIAJERO.getEdad() >= 0 && VIAJERO.getEdad() <= 9){
             return 0;
         }

@@ -5,18 +5,27 @@ import dominio.Viajero;
 import interfaz.*;
 import tads.ABBImp;
 import tads.GrafoImp;
+import tads.ListaImp;
 
 public class ImplementacionSistema implements Sistema  {
     private ABBImp<Viajero> viajerosCedula;
     private ABBImp<Viajero> viajerosMail;
-    private ABBImp<Viajero> viajerosCategoria;
+    private ABBImp<Viajero> viajerosEstandar;
+    private ABBImp<Viajero> viajerosFrecuente;
+    private ABBImp<Viajero> viajerosPlatino;
+    private ListaImp<ABBImp<Viajero>> viajerosRango;
     private GrafoImp grafoCiudades;
 
     @Override
     public Retorno inicializarSistema(int maxCiudades) {
         viajerosCedula = new ABBImp<Viajero>(new ComparadorViajeroCedula());
         viajerosMail = new ABBImp<Viajero>(new ComparadorViajeroMail());
-        viajerosCategoria = new ABBImp<Viajero>(new ComparadorViajeroCategoria());
+        viajerosEstandar = new ABBImp<Viajero>(new ComparadorViajeroCedula());
+        viajerosFrecuente = new ABBImp<Viajero>(new ComparadorViajeroCedula());
+        viajerosPlatino = new ABBImp<Viajero>(new ComparadorViajeroCedula());
+        for (int i = 0; i < 14; i++) {
+            viajerosRango[i] = new ABBImp<Viajero>(new ComparadorViajeroCedula());
+        }
         grafoCiudades = new GrafoImp(maxCiudades, true);
         if (maxCiudades <= 4) {
             return Retorno.error1("");
@@ -44,9 +53,18 @@ public class ImplementacionSistema implements Sistema  {
         if (viajerosMail.existe(new Viajero(correo, edad))) {
             return Retorno.error6("");
         }
-        viajerosCedula.insertar(new Viajero(cedula,nombre,correo,edad,categoria));
-        viajerosMail.insertar(new Viajero(cedula,nombre,correo,edad,categoria));
-        viajerosCategoria.insertar(new Viajero(cedula,nombre,correo,edad,categoria));
+        Viajero V = new Viajero(cedula,nombre,correo,edad,categoria);
+
+        if (categoria.equals(Categoria.PLATINO)) {
+            viajerosPlatino.insertar(V);
+        } else if (categoria.equals(Categoria.FRECUENTE)){
+            viajerosFrecuente.insertar(V);
+        } else {
+            viajerosEstandar.insertar(V);
+        }
+        viajerosRango[V.getEdad() / 10].insertar(V);
+        viajerosCedula.insertar(V);
+        viajerosMail.insertar(V);
         return Retorno.ok();
     }
 
@@ -97,7 +115,13 @@ public class ImplementacionSistema implements Sistema  {
 
     @Override
     public Retorno listarViajerosPorCategoria(Categoria unaCategoria) {
-        return Retorno.ok(viajerosCedula.listarCondicion(new Viajero(unaCategoria)));
+        if (unaCategoria.equals(Categoria.PLATINO)) {
+            return Retorno.ok(viajerosPlatino.listarCondicion(new Viajero(unaCategoria), new ComparadorViajeroCategoria()));
+        } else if (unaCategoria.equals(Categoria.FRECUENTE)) {
+            return Retorno.ok(viajerosFrecuente.listarCondicion(new Viajero(unaCategoria), new ComparadorViajeroCategoria()));
+        } else {
+            return Retorno.ok(viajerosEstandar.listarCondicion(new Viajero(unaCategoria), new ComparadorViajeroCategoria()));
+        }
     }
     @Override
     public Retorno listarViajerosDeUnRangoAscendente(int rango) {
@@ -107,7 +131,7 @@ public class ImplementacionSistema implements Sistema  {
         if (rango > 13){
             return Retorno.error2("");
         }
-        return Retorno.ok(viajerosCedula.listarComparador(new Viajero(rango), new ComparadorViajeroRango()));
+        return Retorno.ok(viajerosRango[rango].listarCondicion(new Viajero(rango), new ComparadorViajeroRango()));
     }
 
     @Override

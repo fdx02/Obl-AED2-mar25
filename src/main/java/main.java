@@ -40,7 +40,7 @@ public class main {
           arbol.insertar(v2);
           arbol.insertar(v3);
 
-        System.out.println(arbol.listarCondicion(new Viajero(Categoria.ESTANDAR)));
+        //System.out.println(arbol.listarCondicion(new Viajero(Categoria.ESTANDAR)));
 
 
 //      arbol.listarDesc();

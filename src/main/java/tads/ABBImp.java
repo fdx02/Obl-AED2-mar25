@@ -1,6 +1,8 @@
 package tads;
 
 
+import dominio.Viajero;
+
 import java.util.Comparator;
 
 public class ABBImp<T extends Comparable<T>> implements ABB<T> {
@@ -135,25 +137,17 @@ public class ABBImp<T extends Comparable<T>> implements ABB<T> {
         return listarDescRec(NODO.getDer()) + NODO.getDato().toString() + listarAscendenteRec(NODO.getIzq());
     }
 
-    public String listarCondicion(T DATO) {
+    public String listarCondicion(T DATO, Comparator<T> COMP) {
+        Comparator<T> temp = this.comp;
+        cambiarComparador(COMP);
         String retorno = listarCondicionRecV2(this.raiz, DATO);
+        cambiarComparador(temp);
         if (retorno.isEmpty()){
             return retorno;
         } else {
             return retorno.substring(0, retorno.length() - 1);
         }
     }
-
-
-//    private String listarCondicionRec(NodoABB<T> NODO, T DATO){
-//        if (NODO == null){
-//            return "";
-//        }
-//        if (NODO.getDato().compareTo(DATO) == 0) {
-//            return listarCondicionRec(NODO.getIzq(), DATO) + NODO.getDato().toString() + listarCondicionRec(NODO.getDer(), DATO);
-//        }
-//        return listarCondicionRec(NODO.getIzq(), DATO) + listarCondicionRec(NODO.getDer(), DATO);
-//    }
 
     private String listarCondicionRecV2(NodoABB<T> NODO, T DATO){
         if (NODO == null){
@@ -167,41 +161,29 @@ public class ABBImp<T extends Comparable<T>> implements ABB<T> {
             return listarCondicionRecV2(NODO.getIzq(), DATO);
         }
     }
-
-    public String listarComparador(T DATO, Comparator<T> COMP) {
-        Comparator<T> temp = this.comp;
-        cambiarComparador(COMP);
-        String retorno = listarNumeroRec(this.raiz, DATO);
-        cambiarComparador(temp);
-        if (retorno.isEmpty()){
-            return retorno;
-        } else {
-            return retorno.substring(0, retorno.length() - 1);
-        }
-    }
-    private String listarNumeroRec(NodoABB<T> NODO, T DATO){
-        if (NODO == null) {
-            return "";
-        }
-        if (comp.compare(NODO.getDato(), DATO) == 0) {
-            return listarNumeroRec(NODO.getIzq(), DATO) + NODO.getDato().toString() + listarNumeroRec(NODO.getDer(), DATO);
-        }
-        return listarNumeroRec(NODO.getIzq(), DATO) + listarNumeroRec(NODO.getDer(), DATO);
-    }
+//    antiguo
+//    public String listarComparador(T DATO, Comparator<T> COMP) {
+//        Comparator<T> temp = this.comp;
+//        cambiarComparador(COMP);
+//        String retorno = listarNumeroRec(this.raiz, DATO);
+//        cambiarComparador(temp);
+//        if (retorno.isEmpty()){
+//            return retorno;
+//        } else {
+//            return retorno.substring(0, retorno.length() - 1);
+//        }
+//    }
+//    private String listarNumeroRec(NodoABB<T> NODO, T DATO){
+//        if (NODO == null) {
+//            return "";
+//        }
+//        if (comp.compare(NODO.getDato(), DATO) == 0) {
+//            return listarNumeroRec(NODO.getIzq(), DATO) + NODO.getDato().toString() + listarNumeroRec(NODO.getDer(), DATO);
+//        }
+//        return listarNumeroRec(NODO.getIzq(), DATO) + listarNumeroRec(NODO.getDer(), DATO);
+//    }
 
     private void cambiarComparador(Comparator<T> COMP){
         this.comp = COMP;
     }
-
-
-
-//    class retornoPer {
-//        public int conteo;
-//        public String dato;
-//        retornoPer(int conteo, String dato) {
-//            this.conteo = conteo;
-//            this.dato = dato;
-//        }
-//    }
-
 }

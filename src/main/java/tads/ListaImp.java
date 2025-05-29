@@ -1,4 +1,6 @@
 package tads;
 
-public class ListaImp {
+public class ListaImp<T> implements Lista<T> {
+
+
 }

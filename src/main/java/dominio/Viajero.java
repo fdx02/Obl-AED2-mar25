@@ -10,7 +10,6 @@ public class Viajero implements Comparable<Viajero> {
     private String correo;
     private int edad;
     private Categoria categoria;
-    private int conteo;
     public Viajero() {
     }
 
@@ -21,7 +20,6 @@ public class Viajero implements Comparable<Viajero> {
         this.correo = CORREO;
         this.edad = EDAD;
         this.categoria = CATEGORIA;
-        this.conteo = 0;
     }
 
     public Viajero(String CEDULA){
@@ -49,13 +47,6 @@ public class Viajero implements Comparable<Viajero> {
         //“cedula;nombre;correo;edad;categoria”
     }
 
-    public int getConteo() {
-        return conteo;
-    }
-
-    public void setConteo(int conteo) {
-        this.conteo = conteo;
-    }
 
     @Override
     public boolean equals(Object o) {

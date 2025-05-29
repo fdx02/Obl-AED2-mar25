@@ -9,6 +9,6 @@ public interface ABB<T> {
     int buscarPorDatoCant(T DATO);
     String listarAscendente();
     String listarDesc();
-    String listarCondicion(T DATO);
-    String listarComparador(T DATO, Comparator<T> COMP);
+    String listarCondicion(T DATO, Comparator<T> COMP);
+    //String listarComparador(T DATO, Comparator<T> COMP);
 }

@@ -95,5 +95,7 @@ public class GrafoImp{
         return -1;
     }
 
-
+    public boolean esLleno(){
+        return cantidad == maxCiudades;
+    }
 }

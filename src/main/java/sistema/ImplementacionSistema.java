@@ -3,6 +3,7 @@ package sistema;
 import comparadores.*;
 import dominio.Viajero;
 import interfaz.*;
+import tads.ABB;
 import tads.ABBImp;
 import tads.GrafoImp;
 import tads.ListaImp;
@@ -23,14 +24,15 @@ public class ImplementacionSistema implements Sistema  {
         viajerosEstandar = new ABBImp<Viajero>(new ComparadorViajeroCedula());
         viajerosFrecuente = new ABBImp<Viajero>(new ComparadorViajeroCedula());
         viajerosPlatino = new ABBImp<Viajero>(new ComparadorViajeroCedula());
-        for (int i = 0; i < 14; i++) {
-            viajerosRango[i] = new ABBImp<Viajero>(new ComparadorViajeroCedula());
+        viajerosRango = new ListaImp<ABBImp<Viajero>>(14);
+        for (int i = 0; i < viajerosRango.getMaxElementos(); i++) {
+            viajerosRango.agregar(new ABBImp<Viajero>(new ComparadorViajeroCedula()));
         }
-        grafoCiudades = new GrafoImp(maxCiudades, true);
-        if (maxCiudades <= 4) {
-            return Retorno.error1("");
+        if (maxCiudades > 4) {
+            grafoCiudades = new GrafoImp(maxCiudades, true);
+            return Retorno.ok();
         }
-        return Retorno.ok();
+        return Retorno.error1("");
     }
 
     @Override
@@ -62,7 +64,7 @@ public class ImplementacionSistema implements Sistema  {
         } else {
             viajerosEstandar.insertar(V);
         }
-        viajerosRango[V.getEdad() / 10].insertar(V);
+        viajerosRango.obtener(V.getEdad() / 10).insertar(V);
         viajerosCedula.insertar(V);
         viajerosMail.insertar(V);
         return Retorno.ok();
@@ -116,11 +118,11 @@ public class ImplementacionSistema implements Sistema  {
     @Override
     public Retorno listarViajerosPorCategoria(Categoria unaCategoria) {
         if (unaCategoria.equals(Categoria.PLATINO)) {
-            return Retorno.ok(viajerosPlatino.listarCondicion(new Viajero(unaCategoria), new ComparadorViajeroCategoria()));
+            return Retorno.ok(viajerosPlatino.listarAscendente());
         } else if (unaCategoria.equals(Categoria.FRECUENTE)) {
-            return Retorno.ok(viajerosFrecuente.listarCondicion(new Viajero(unaCategoria), new ComparadorViajeroCategoria()));
+            return Retorno.ok(viajerosFrecuente.listarAscendente());
         } else {
-            return Retorno.ok(viajerosEstandar.listarCondicion(new Viajero(unaCategoria), new ComparadorViajeroCategoria()));
+            return Retorno.ok(viajerosEstandar.listarAscendente());
         }
     }
     @Override
@@ -131,11 +133,19 @@ public class ImplementacionSistema implements Sistema  {
         if (rango > 13){
             return Retorno.error2("");
         }
-        return Retorno.ok(viajerosRango[rango].listarCondicion(new Viajero(rango), new ComparadorViajeroRango()));
+        return Retorno.ok(viajerosRango.obtener(rango).listarAscendente());
+        //return Retorno.ok(viajerosRango.obtener(rango).listarCondicion(new Viajero(rango)));
+        //return Retorno.ok(viajerosRango[rango].listarCondicion(new Viajero(rango), new ComparadorViajeroRango()));
     }
 
     @Override
     public Retorno registrarCiudad(String codigo, String nombre) {
+        if (grafoCiudades.esLleno()){
+            return Retorno.error1("");
+        }
+        if (codigo == null || codigo.trim().isEmpty() || nombre == null || nombre.trim().isEmpty()) {
+            return Retorno.error2("");
+        }
         return Retorno.noImplementada();
     }
 

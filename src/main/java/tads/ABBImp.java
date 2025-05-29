@@ -138,10 +138,10 @@ public class ABBImp<T extends Comparable<T>> implements ABB<T> {
     }
 
     public String listarCondicion(T DATO, Comparator<T> COMP) {
-        Comparator<T> temp = this.comp;
+        Comparator<T> aux = comp;
         cambiarComparador(COMP);
         String retorno = listarCondicionRecV2(this.raiz, DATO);
-        cambiarComparador(temp);
+        cambiarComparador(aux);
         if (retorno.isEmpty()){
             return retorno;
         } else {

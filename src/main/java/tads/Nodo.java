@@ -14,6 +14,7 @@ public class Nodo<T> {
         this.dato = DATO;
         this.sig = SIG;
     }
+
     public T getDato() {
         return dato;
     }
@@ -31,3 +32,4 @@ public class Nodo<T> {
     }
 
 }
+

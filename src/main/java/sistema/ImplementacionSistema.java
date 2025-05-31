@@ -1,7 +1,9 @@
 package sistema;
 
 import comparadores.*;
+import dominio.Conexion;
 import dominio.Viajero;
+import dominio.Vuelo;
 import interfaz.*;
 import tads.ABB;
 import tads.ABBImp;
@@ -9,11 +11,11 @@ import tads.GrafoImp;
 import tads.ListaImp;
 
 public class ImplementacionSistema implements Sistema  {
-    private ABBImp<Viajero> viajerosCedula;
-    private ABBImp<Viajero> viajerosMail;
-    private ABBImp<Viajero> viajerosEstandar;
-    private ABBImp<Viajero> viajerosFrecuente;
-    private ABBImp<Viajero> viajerosPlatino;
+    private ABB<Viajero> viajerosCedula;
+    private ABB<Viajero> viajerosMail;
+    private ABB<Viajero> viajerosEstandar;
+    private ABB<Viajero> viajerosFrecuente;
+    private ABB<Viajero> viajerosPlatino;
     private ListaImp<ABBImp<Viajero>> viajerosRango;
     private GrafoImp grafoCiudades;
 
@@ -146,22 +148,77 @@ public class ImplementacionSistema implements Sistema  {
         if (codigo == null || codigo.trim().isEmpty() || nombre == null || nombre.trim().isEmpty()) {
             return Retorno.error2("");
         }
-        return Retorno.noImplementada();
+        if (grafoCiudades.existe(codigo)) {
+            return Retorno.error3("");
+        }
+        grafoCiudades.registrarCiudad(codigo, nombre);
+        return Retorno.ok();
     }
 
     @Override
     public Retorno registrarConexion(String codigoCiudadOrigen, String codigoCiudadDestino) {
-        return Retorno.noImplementada();
+        if (codigoCiudadOrigen == null || codigoCiudadOrigen.trim().isEmpty() || codigoCiudadDestino == null || codigoCiudadDestino.trim().isEmpty()) {
+            return Retorno.error1("");
+        }
+        if (!grafoCiudades.existe(codigoCiudadOrigen)) {
+            return Retorno.error2("");
+        }
+        if (!grafoCiudades.existe(codigoCiudadDestino)) {
+            return Retorno.error3("");
+        }
+        if (grafoCiudades.existeConexion(codigoCiudadOrigen, codigoCiudadDestino)) {
+            return Retorno.error4("");
+        }
+        grafoCiudades.registrarConexion(new Conexion(codigoCiudadOrigen, codigoCiudadDestino));
+        return Retorno.ok();
     }
 
     @Override
     public Retorno registrarVuelo(String codigoCiudadOrigen, String codigoCiudadDestino, String codigoDeVuelo, double combustible, double minutos, double costoEnDolares, TipoVuelo tipoDeVuelo) {
-        return Retorno.noImplementada();
+        if (combustible <= 0 || costoEnDolares <= 0 || minutos <= 0){
+            return Retorno.error1("");
+        }
+        if (tipoDeVuelo == null || codigoCiudadOrigen == null || codigoCiudadOrigen.trim().isEmpty() || codigoCiudadDestino == null || codigoCiudadDestino.trim().isEmpty() || codigoDeVuelo == null || codigoDeVuelo.trim().isEmpty()){
+            return Retorno.error2("");
+        }
+        if (!grafoCiudades.existe(codigoCiudadOrigen)) {
+            return Retorno.error3("");
+        }
+        if (!grafoCiudades.existe(codigoCiudadDestino)) {
+            return Retorno.error4("");
+        }
+        if (!grafoCiudades.existeConexion(codigoCiudadOrigen, codigoCiudadDestino)) {
+            return Retorno.error5("");
+        }
+        if (grafoCiudades.existeVuelo(new Conexion(codigoCiudadOrigen,codigoCiudadDestino), codigoDeVuelo)){
+            return Retorno.error6("");
+        }
+        grafoCiudades.registrarVuelo(new Vuelo(codigoCiudadOrigen,codigoCiudadDestino,codigoDeVuelo,combustible,minutos,costoEnDolares,tipoDeVuelo));
+        return Retorno.ok();
     }
 
     @Override
     public Retorno actualizarVuelo(String codigoCiudadOrigen, String codigoCiudadDestino, String codigoDeVuelo, double combustible, double minutos, double costoEnDolares, TipoVuelo tipoDeVuelo) {
-        return Retorno.noImplementada();
+        if (combustible <= 0 || costoEnDolares <= 0 || minutos <= 0){
+            return Retorno.error1("");
+        }
+        if (tipoDeVuelo == null || codigoCiudadOrigen == null || codigoCiudadOrigen.trim().isEmpty() || codigoCiudadDestino == null || codigoCiudadDestino.trim().isEmpty() || codigoDeVuelo == null || codigoDeVuelo.trim().isEmpty()){
+            return Retorno.error2("");
+        }
+        if (!grafoCiudades.existe(codigoCiudadOrigen)) {
+            return Retorno.error3("");
+        }
+        if (!grafoCiudades.existe(codigoCiudadDestino)) {
+            return Retorno.error4("");
+        }
+        if (!grafoCiudades.existeConexion(codigoCiudadOrigen, codigoCiudadDestino)) {
+            return Retorno.error5("");
+        }
+        if (!grafoCiudades.existeVuelo(new Conexion(codigoCiudadOrigen,codigoCiudadDestino), codigoDeVuelo)){
+            return Retorno.error6("");
+        }
+        grafoCiudades.actualizarVuelo(new Vuelo(codigoCiudadOrigen,codigoCiudadDestino,codigoDeVuelo,combustible,minutos,costoEnDolares,tipoDeVuelo));
+        return Retorno.ok();
     }
 
     @Override

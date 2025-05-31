@@ -34,6 +34,8 @@ public class GrafoImp{
             }
         }
 
+
+
         //agregar el chequeo de null (crear conexiones vacias en la matriz)
         //agregar to do lo de arista existe
     }
@@ -76,6 +78,22 @@ public class GrafoImp{
         return conexiones[posOrigen][posDestino];
     }
 
+    public void registrarVuelo(Vuelo VUELO) {
+        int posOrigen = obtenerPos(VUELO.getCodigoCiudadOrigen());
+        int posDestino = obtenerPos(VUELO.getCodigoCiudadDestino());
+        if (conexiones[posOrigen][posDestino].isExiste()) {
+            conexiones[posOrigen][posDestino].agregarVuelo(VUELO);
+        }
+    }
+
+    public void actualizarVuelo(Vuelo VUELO){
+        int posOrigen = obtenerPos(VUELO.getCodigoCiudadOrigen());
+        int posDestino = obtenerPos(VUELO.getCodigoCiudadDestino());
+        if (conexiones[posOrigen][posDestino].isExiste()) {
+            conexiones[posOrigen][posDestino].actualizarVuelo(VUELO);
+        }
+    }
+
 
     public int obtenerPosLibre() {
         for (int i = 0; i < ciudades.length; i++) {
@@ -86,16 +104,68 @@ public class GrafoImp{
         return -1;
     }
 
+
+
+    public boolean esLleno(){
+        return cantidad == maxCiudades;
+    }
+    public boolean esVacia(){
+        return cantidad == 0;
+    }
+
+    //chequear
     public int obtenerPos(String codigoCiudad) {
         for (int i = 0; i < ciudades.length; i++) {
-            if (ciudades[i].getCodigo().equals(codigoCiudad)) {
+            if (ciudades[i] != null && ciudades[i].getCodigo().equals(codigoCiudad)) {
                 return i;
             }
         }
         return -1;
     }
-
-    public boolean esLleno(){
-        return cantidad == maxCiudades;
+    public boolean existe(String CODIGO){
+        int pos = obtenerPos(CODIGO);
+        if (esVacia() || pos == -1) {
+            return false;
+        }
+        for (int i = 0; i < ciudades.length; i++) {
+            if (ciudades[i].equals(ciudades[pos])) {
+                return true;
+            }
+        }
+        return false;
     }
+
+    public boolean existeConexion(String ORIGEN, String DESTINO){
+        int posOrigen = obtenerPos(ORIGEN);
+        int posDestino = obtenerPos(DESTINO);
+        if (posOrigen == -1 || posDestino == -1) {
+            return false;
+        }
+        return conexiones[posOrigen][posDestino].isExiste() || conexiones[posDestino][posOrigen].isExiste();
+    }
+
+    public boolean existeVuelo(Conexion CONEXION, String CODIGOVUELO){
+        Conexion con = obtenerConexion(CONEXION);
+        return con.existeVuelo(CODIGOVUELO);
+
+    }
+
+//    public boolean existe(String codigoCiudad){
+//        boolean[] visitados = new boolean[maxCiudades];
+//        int posV = obtenerPos(codigoCiudad);
+//        return existeRec(posV,visitados,codigoCiudad);
+//    }
+//
+//    private boolean existeRec(int POS, boolean[] visitados, String codigoCiudad){
+//        if (ciudades[POS].getCodigo().equals(codigoCiudad)) {
+//            return true;
+//        }
+//        visitados[POS] = true;
+//        for (int i = 0; i < conexiones.length; i++) {
+//            if (conexiones[POS][i].isExiste() && !visitados[i]){
+//                existeRec(i,visitados,codigoCiudad);
+//            }
+//        }
+//        return false;
+//    }
 }

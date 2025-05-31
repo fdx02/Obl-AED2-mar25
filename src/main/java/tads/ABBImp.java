@@ -101,7 +101,24 @@ public class ABBImp<T extends Comparable<T>> implements ABB<T> {
         return 0;
     }
 
+    public T obtener(T DATO){
+        return obtenerRec(raiz, DATO);
+    }
 
+    public T obtenerRec(NodoABB<T> NODO, T DATO) {
+        if (NODO != null) {;
+            if (comp.compare(NODO.getDato(), DATO) == 0) {
+                return NODO.getDato();
+            } else {
+                if (comp.compare(NODO.getDato(), DATO) < 0){
+                    return obtenerRec(NODO.getDer(), DATO);
+                } else {
+                    return obtenerRec(NODO.getIzq(), DATO);
+                }
+            }
+        }
+        return null;
+    }
 
 
     public String listarAscendente() {

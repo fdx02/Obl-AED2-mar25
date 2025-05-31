@@ -32,13 +32,17 @@ public class main {
 //        String soloNumeros = cedula.replaceAll("\\D", "");
 //        System.out.println(soloNumeros); // Imprime: 12345678
 
-          ABBImp<Viajero> arbol = new ABBImp(new ComparadorViajeroCategoria());
+          ABBImp<Viajero> arbol = new ABBImp(new ComparadorViajeroCedula());
           Viajero v1 = new Viajero("56172803", "Rondro", "choice@gmail.com", 1, Categoria.PLATINO);
           Viajero v2 = new Viajero("53464577", "JuanMartin241", "pantera@gmail.com", 15, Categoria.PLATINO);
           Viajero v3 = new Viajero("12324535", "niggy", "apstor@gmail.com", 15, Categoria.ESTANDAR);
           arbol.insertar(v1);
           arbol.insertar(v2);
           arbol.insertar(v3);
+
+          Viajero aux = arbol.obtener(new Viajero("53464577"));
+          aux.setCedula("hijodepunga");
+          System.out.println(arbol.listarAscendente());
 
         //System.out.println(arbol.listarCondicion(new Viajero(Categoria.ESTANDAR)));
 

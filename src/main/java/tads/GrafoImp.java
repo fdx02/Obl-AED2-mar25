@@ -165,8 +165,8 @@ public class GrafoImp{
             int pos = cola.desencolar();
             ret.insertar(ciudades[pos]);
             for (int i = 0; i < conexiones.length; i++) {
-                if (conexiones[pos][i].isExiste() && !visitados[i]) {
-                    visitados[i] = true;
+                if (conexiones[pos][i].isExiste() && !visitados[i] && conexiones[pos][i].tieneVuelos()) {
+                    visitados[i] = true;  
                     colaNivel.encolar(i);
                 }
             }

@@ -30,6 +30,10 @@ public class Conexion {
         aux.setTipoVuelo(V.getTipoVuelo());
     }
 
+    public boolean tieneVuelos(){
+        return !vuelos.esVacio();
+    }
+
     public boolean existeVuelo(String codigoVuelo){
         return vuelos.existe(new Vuelo(codigoVuelo));
     }

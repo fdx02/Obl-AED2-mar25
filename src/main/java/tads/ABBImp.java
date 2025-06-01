@@ -13,6 +13,10 @@ public class ABBImp<T extends Comparable<T>> implements ABB<T> {
         this.comp = comp;
     }
 
+    public boolean esVacio(){
+        return raiz == null;
+    }
+
     public void insertar(T DATO) {
         if (this.raiz == null) {
             this.raiz = new NodoABB(DATO);

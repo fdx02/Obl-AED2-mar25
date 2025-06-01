@@ -11,5 +11,6 @@ public interface ABB<T> {
     String listarAscendente();
     String listarDesc();
     String listarCondicion(T DATO, Comparator<T> COMP);
+    boolean esVacio();
     //String listarComparador(T DATO, Comparator<T> COMP);
 }

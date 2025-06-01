@@ -1,5 +1,6 @@
 package tads;
 
+import comparadores.ComparadorCiudad;
 import dominio.*;
 
 import javax.swing.*;
@@ -147,25 +148,72 @@ public class GrafoImp{
     public boolean existeVuelo(Conexion CONEXION, String CODIGOVUELO){
         Conexion con = obtenerConexion(CONEXION);
         return con.existeVuelo(CODIGOVUELO);
-
     }
 
-//    public boolean existe(String codigoCiudad){
+    public String cantEscalas(int ESCALA, String ORIGEN) {
+        int posOrigen = obtenerPos(ORIGEN);
+        boolean[] visitados = new boolean[maxCiudades];
+        ABB<Ciudad> ret = new ABBImp<Ciudad>(new ComparadorCiudad());
+
+        Cola<Integer> cola = new ColaImp<Integer>();//cola general
+        Cola<Integer> colaNivel = new ColaImp<Integer>();//cola de Nivel
+
+        visitados[posOrigen] = true;
+        cola.encolar(posOrigen);
+        int nivel= 0;
+        while (!cola.esVacia() && nivel <= ESCALA) {
+            int pos = cola.desencolar();
+            ret.insertar(ciudades[pos]);
+            for (int i = 0; i < conexiones.length; i++) {
+                if (conexiones[pos][i].isExiste() && !visitados[i]) {
+                    visitados[i] = true;
+                    colaNivel.encolar(i);
+                }
+            }
+            if (cola.esVacia()) {
+                cola = colaNivel;
+                colaNivel = new ColaImp<Integer>();
+                nivel++;
+            }
+        }
+        return ret.listarAscendente();
+    }
+
+//    public String cantEscalas(int ESCALA, String ORIGEN){
+//        String retorno = "";
+//        int nivel= 0;
 //        boolean[] visitados = new boolean[maxCiudades];
-//        int posV = obtenerPos(codigoCiudad);
-//        return existeRec(posV,visitados,codigoCiudad);
-//    }
+//        int posOrigen = obtenerPos(ORIGEN);
+//        ABB<Ciudad> ret = new ABBImp<Ciudad>(new ComparadorCiudad());
 //
-//    private boolean existeRec(int POS, boolean[] visitados, String codigoCiudad){
-//        if (ciudades[POS].getCodigo().equals(codigoCiudad)) {
-//            return true;
-//        }
-//        visitados[POS] = true;
-//        for (int i = 0; i < conexiones.length; i++) {
-//            if (conexiones[POS][i].isExiste() && !visitados[i]){
-//                existeRec(i,visitados,codigoCiudad);
+//
+//        Cola<Integer> cola = new ColaImp<Integer>();
+//        visitados[posOrigen] = true;
+//        cola.encolar(posOrigen);
+//        cola.encolar(-5);
+//
+//        while (!cola.esVacia() && nivel <= ESCALA) {
+//            //manejo el nivel actual
+//            int pos = cola.desencolar();
+//            if (pos == -5 && !cola.esVacia()){
+//                cola.encolar(-5);
+//                nivel++;
+//            }
+//            //hago algo
+//            ret.insertar(ciudades[pos]);
+//            for (int i = 0; i < conexiones.length; i++) {
+//                if (conexiones[pos][i].isExiste() && !visitados[i]) {
+//                    visitados[i] = true;
+//                    cola.encolar(i);
+//                }
 //            }
 //        }
-//        return false;
+//
+//        if (retorno.isEmpty()){
+//            return retorno;
+//        } else {
+//            return retorno.substring(0, retorno.length() - 1);
+//        }
+//
 //    }
 }

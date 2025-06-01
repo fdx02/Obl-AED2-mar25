@@ -223,7 +223,16 @@ public class ImplementacionSistema implements Sistema  {
 
     @Override
     public Retorno listadoCiudadesCantDeEscalas(String codigoCiudadOrigen, int cantidad) {
-        return Retorno.noImplementada();
+        if (cantidad < 0){
+            return Retorno.error1("");
+        }
+        if (codigoCiudadOrigen == null || codigoCiudadOrigen.trim().isEmpty()){
+            return Retorno.error2("");
+        }
+        if (!grafoCiudades.existe(codigoCiudadOrigen)) {
+            return Retorno.error3("");
+        }
+        return Retorno.ok(grafoCiudades.cantEscalas(cantidad,codigoCiudadOrigen));
     }
 
     @Override

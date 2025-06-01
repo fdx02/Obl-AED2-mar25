@@ -78,6 +78,8 @@ public class Test14CiudadesPorCantidadEscalas {
         assertEquals(Retorno.Resultado.OK, retorno.getResultado());
         assertEquals(ciudad1, retorno.getValorString());
 
+
+        //PREGUNTARLE AL PROFE MAIL!!!!!!!!!!!!!!! ESTO ESTA PARA EL OJETE
         //Conexion sin vuelos (debe tener al menos 1 vuelo)
         retorno = s.listadoCiudadesCantDeEscalas("COD01", 1);
         assertEquals(Retorno.Resultado.OK, retorno.getResultado());

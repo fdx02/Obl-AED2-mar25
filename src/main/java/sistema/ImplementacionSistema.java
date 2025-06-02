@@ -237,12 +237,40 @@ public class ImplementacionSistema implements Sistema  {
 
     @Override
     public Retorno viajeCostoMinimoMinutos(String codigoCiudadOrigen, String codigoCiudadDestino, TipoVueloPermitido tipoVueloPermitido) {
-        return Retorno.noImplementada();
+        if(codigoCiudadOrigen == null || codigoCiudadOrigen.trim().isEmpty() || codigoCiudadDestino == null || codigoCiudadDestino.trim().isEmpty()
+        || tipoVueloPermitido == null){
+            return Retorno.error1("");
+        }
+        if(!grafoCiudades.existe(codigoCiudadOrigen)){
+            return Retorno.error2("");
+        }
+        if(!grafoCiudades.existe(codigoCiudadDestino)){
+            return Retorno.error3("");
+        }
+        if(grafoCiudades.dijkstraConDestino(codigoCiudadOrigen, codigoCiudadDestino, 1, tipoVueloPermitido) == null){
+            return Retorno.error4("");
+        }
+        return Retorno.ok((int)grafoCiudades.dijkstraConDestinoInt(codigoCiudadOrigen, codigoCiudadDestino, 1, tipoVueloPermitido)
+        ,grafoCiudades.dijkstraConDestino(codigoCiudadOrigen, codigoCiudadDestino, 1, tipoVueloPermitido));
     }
 
     @Override
     public Retorno viajeCostoMinimoDolares(String codigoCiudadOrigen, String codigoCiudadDestino, TipoVueloPermitido tipoVueloPermitido) {
-        return Retorno.noImplementada();
+        if(codigoCiudadOrigen == null || codigoCiudadOrigen.trim().isEmpty() || codigoCiudadDestino == null || codigoCiudadDestino.trim().isEmpty()
+                || tipoVueloPermitido == null){
+            return Retorno.error1("");
+        }
+        if(!grafoCiudades.existe(codigoCiudadOrigen)){
+            return Retorno.error2("");
+        }
+        if(!grafoCiudades.existe(codigoCiudadDestino)){
+            return Retorno.error3("");
+        }
+        if(grafoCiudades.dijkstraConDestino(codigoCiudadOrigen, codigoCiudadDestino, 2, tipoVueloPermitido) == null){
+            return Retorno.error4("");
+        }
+        return Retorno.ok((int)grafoCiudades.dijkstraConDestinoInt(codigoCiudadOrigen, codigoCiudadDestino, 2, tipoVueloPermitido)
+                ,grafoCiudades.dijkstraConDestino(codigoCiudadOrigen, codigoCiudadDestino, 2, tipoVueloPermitido));
     }
 
 }

@@ -1,6 +1,7 @@
 package dominio;
 
 import interfaz.TipoVuelo;
+import interfaz.TipoVueloPermitido;
 
 public class Vuelo implements Comparable<Vuelo>{
     String codigoCiudadOrigen;
@@ -10,6 +11,7 @@ public class Vuelo implements Comparable<Vuelo>{
     double minutos;
     double costoEnDolares;
     TipoVuelo tipoVuelo;
+    TipoVueloPermitido tipoVueloPermitido;
 
     public Vuelo() {
 
@@ -23,6 +25,10 @@ public class Vuelo implements Comparable<Vuelo>{
         costoEnDolares = COSTO;
         tipoVuelo = TIPO;
     }
+    public Vuelo(TipoVueloPermitido TIPOVUELOPERMITIDO) {
+        tipoVueloPermitido = TIPOVUELOPERMITIDO;
+    }
+
     public Vuelo(String CODIGO){
         codigoVuelo = CODIGO;
     }
@@ -82,6 +88,10 @@ public class Vuelo implements Comparable<Vuelo>{
 
     public TipoVuelo getTipoVuelo() {
         return tipoVuelo;
+    }
+
+    public TipoVueloPermitido getTipoVueloPermitido() {
+        return tipoVueloPermitido;
     }
 
     public void setTipoVuelo(TipoVuelo tipoVuelo) {

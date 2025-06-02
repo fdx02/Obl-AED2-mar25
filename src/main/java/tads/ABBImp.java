@@ -148,7 +148,6 @@ public class ABBImp<T extends Comparable<T>> implements ABB<T> {
         } else {
             return retorno.substring(0, retorno.length() - 1);
         }
-
     }
 
     private String listarDescRec(NodoABB<T> NODO) {
@@ -181,6 +180,25 @@ public class ABBImp<T extends Comparable<T>> implements ABB<T> {
         } else {
             return listarCondicionRecV2(NODO.getIzq(), DATO);
         }
+    }
+
+    public T getMenor(Comparator<T> COMP, T DATO) {
+        Comparator<T> aux = comp;
+        cambiarComparador(COMP);
+        T retorno = getMenorRec(raiz, DATO);
+        cambiarComparador(aux);
+        return retorno;
+    }
+//catastrofe
+    private T getMenorRec(NodoABB<T> NODO, T DATO) {
+        if(NODO != null){
+            if(NODO.getIzq() == null && comp.compare(NODO.getDato(), DATO) == 0){
+                return NODO.getDato();
+            } else {
+                return getMenorRec(NODO.getIzq(), DATO);
+            }
+        }
+        return null;
     }
 //    antiguo
 //    public String listarComparador(T DATO, Comparator<T> COMP) {

@@ -16,7 +16,7 @@ public class Test15CostoMinimo {
 
     @BeforeEach
     public void setUp() {
-        s.inicializarSistema(50);
+        s.inicializarSistema(10);
     }
 
     @Test

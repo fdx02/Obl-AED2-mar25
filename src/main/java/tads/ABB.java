@@ -16,6 +16,4 @@ public interface ABB<T> {
     boolean esVacio();
     T getMenor(Comparator<T> COMP, T DATO);
 
-
-    //String listarComparador(T DATO, Comparator<T> COMP);
 }

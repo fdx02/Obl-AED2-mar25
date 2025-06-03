@@ -186,7 +186,7 @@ public class ABBImp<T extends Comparable<T>> implements ABB<T> {
         cambiarComparador(aux);
         return retorno;
     }
-//catastrofe
+
     private T getMenorRec(NodoABB<T> NODO, T DATO) {
         if(NODO != null){
             if(NODO.getIzq() == null && comp.compare(NODO.getDato(), DATO) == 0){
@@ -197,27 +197,7 @@ public class ABBImp<T extends Comparable<T>> implements ABB<T> {
         }
         return null;
     }
-//    antiguo
-//    public String listarComparador(T DATO, Comparator<T> COMP) {
-//        Comparator<T> temp = this.comp;
-//        cambiarComparador(COMP);
-//        String retorno = listarNumeroRec(this.raiz, DATO);
-//        cambiarComparador(temp);
-//        if (retorno.isEmpty()){
-//            return retorno;
-//        } else {
-//            return retorno.substring(0, retorno.length() - 1);
-//        }
-//    }
-//    private String listarNumeroRec(NodoABB<T> NODO, T DATO){
-//        if (NODO == null) {
-//            return "";
-//        }
-//        if (comp.compare(NODO.getDato(), DATO) == 0) {
-//            return listarNumeroRec(NODO.getIzq(), DATO) + NODO.getDato().toString() + listarNumeroRec(NODO.getDer(), DATO);
-//        }
-//        return listarNumeroRec(NODO.getIzq(), DATO) + listarNumeroRec(NODO.getDer(), DATO);
-//    }
+
 
     private void cambiarComparador(Comparator<T> COMP){
         this.comp = COMP;

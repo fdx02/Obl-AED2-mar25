@@ -26,10 +26,6 @@ public class Vuelo implements Comparable<Vuelo>{
         tipoVuelo = TIPO;
         tipoVueloPermitido = TIPO.getTexto();
 
-        //  TipoVueloPermitido(int indice, String texto) {
-        //        this.indice = indice;
-        //        this.texto = texto;
-        //    }
     }
     public Vuelo(TipoVueloPermitido TIPOVUELOPERMITIDO) {
         tipoVueloPermitido = TIPOVUELOPERMITIDO.getTexto();

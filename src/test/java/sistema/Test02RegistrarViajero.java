@@ -22,9 +22,22 @@ public class Test02RegistrarViajero {
         retorno = s.registrarViajero("1.914.689-5", "Guillermo", "guille@ort.edu.uy", 35, Categoria.ESTANDAR);
         assertEquals(Retorno.Resultado.OK, retorno.getResultado());
 
-        retorno = s.registrarViajero("2.914.689-5", "Ana", "ana@ort.edu.uy", 26, Categoria.ESTANDAR);
+        retorno = s.registrarViajero("2.514.689-5", "Ana", "ana@ort.edu.uy", 26, Categoria.ESTANDAR);
+        assertEquals(Retorno.Resultado.OK, retorno.getResultado());
+
+        retorno = s.registrarViajero("2.914.689-6", "Ana", "hola@ort.edu.uy", 139, Categoria.ESTANDAR);
+        assertEquals(Retorno.Resultado.OK, retorno.getResultado());
+
+        retorno = s.registrarViajero("2.914.689-7", "Ana", "wubwoofwolf@ort.edu.uy", 0, Categoria.ESTANDAR);
+        assertEquals(Retorno.Resultado.OK, retorno.getResultado());
+
+        retorno = s.registrarViajero("1.234.567-8", "María", "maria@ort.edu.uy", 25, Categoria.ESTANDAR);
+        assertEquals(Retorno.Resultado.OK, retorno.getResultado());
+
+        retorno = s.registrarViajero("1.234.567-9", "Barça", "barca@ort.edu.uy", 30, Categoria.ESTANDAR);
         assertEquals(Retorno.Resultado.OK, retorno.getResultado());
     }
+
 
     @Test
     void registrarViajeroError1() {
@@ -87,6 +100,12 @@ public class Test02RegistrarViajero {
 
         retorno = s.registrarViajero("914.689.-.5", "Guillermo", "guille@ort.edu.uy", 35, Categoria.ESTANDAR);
         assertEquals(Retorno.Resultado.ERROR_2, retorno.getResultado());
+
+        retorno = s.registrarViajero("asdas32452", "cookiezi", "cookiezi@ort.edu.uy", 18, Categoria.ESTANDAR);
+        assertEquals(Retorno.Resultado.ERROR_2, retorno.getResultado());
+
+        retorno = s.registrarViajero("hola", "vaxei", "vaxei@ort.edu.uy", -59, Categoria.ESTANDAR);
+        assertEquals(Retorno.Resultado.ERROR_2, retorno.getResultado());
     }
 
     @Test
@@ -141,5 +160,4 @@ public class Test02RegistrarViajero {
         retorno = s.registrarViajero("2.914.689-4", "Guillermo", "guille@ort.edu.uy", 35, Categoria.ESTANDAR);
         assertEquals(Retorno.Resultado.ERROR_6, retorno.getResultado());
     }
-
 }

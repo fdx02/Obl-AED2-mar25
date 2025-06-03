@@ -6,6 +6,13 @@ import interfaz.*;
 import tads.*;
 
 public class ImplementacionSistema implements Sistema  {
+    //OBLIGATORIO DE ALGORITMO Y ESTRUCTURAS DE DATOS 2 - FACULTAD ORT URUGUAY
+    //DOCENTE:
+    //Fabian Fernandez
+    //INTEGRANTES DEL GRUPO:
+    //Francisco Delgado (291668)
+    //Rafael Moraes (291598)
+
     private ABB<Viajero> viajerosCedula;
     private ABB<Viajero> viajerosMail;
     private ABB<Viajero> viajerosEstandar;
@@ -21,7 +28,6 @@ public class ImplementacionSistema implements Sistema  {
         viajerosEstandar = new ABBImp<Viajero>(new ComparadorViajeroCedula());
         viajerosFrecuente = new ABBImp<Viajero>(new ComparadorViajeroCedula());
         viajerosPlatino = new ABBImp<Viajero>(new ComparadorViajeroCedula());
-        //viajerosRango = new ListaImp<ABBImp<Viajero>>(14);
         viajerosRango = new ListaImp<ABB<Viajero>>(14);
         for (int i = 0; i < viajerosRango.getMaxElementos(); i++) {
             viajerosRango.agregarDesordenado(new ABBImp<Viajero>(new ComparadorViajeroCedula()));
@@ -44,7 +50,7 @@ public class ImplementacionSistema implements Sistema  {
         if (!correo.matches("^[A-Za-z0-9+_.-]+@[A-Za-z0-9.-]+$")) {
             return Retorno.error3("");
         }
-        if (edad <= 0 || edad >= 139){
+        if (edad < 0 || edad > 139){
             return Retorno.error4("");
         }
         if (viajerosCedula.existe(new Viajero(cedula))) {
@@ -246,8 +252,8 @@ public class ImplementacionSistema implements Sistema  {
         if(grafoCiudades.dijkstraConDestino(codigoCiudadOrigen, codigoCiudadDestino, 1, tipoVueloPermitido) == null){
             return Retorno.error4("");
         }
-        return Retorno.ok((int)grafoCiudades.dijkstraConDestinoInt(codigoCiudadOrigen, codigoCiudadDestino, 1, tipoVueloPermitido)
-        ,grafoCiudades.dijkstraConDestino(codigoCiudadOrigen, codigoCiudadDestino, 1, tipoVueloPermitido));
+        retornoDijkstra ret = grafoCiudades.dijkstraConDestino(codigoCiudadOrigen, codigoCiudadDestino, 1, tipoVueloPermitido);
+        return Retorno.ok((int)ret.getEntero(), ret.getString());
     }
 
     @Override
@@ -265,8 +271,8 @@ public class ImplementacionSistema implements Sistema  {
         if(grafoCiudades.dijkstraConDestino(codigoCiudadOrigen, codigoCiudadDestino, 2, tipoVueloPermitido) == null){
             return Retorno.error4("");
         }
-        return Retorno.ok((int)grafoCiudades.dijkstraConDestinoInt(codigoCiudadOrigen, codigoCiudadDestino, 2, tipoVueloPermitido)
-                ,grafoCiudades.dijkstraConDestino(codigoCiudadOrigen, codigoCiudadDestino, 2, tipoVueloPermitido));
+        retornoDijkstra ret = grafoCiudades.dijkstraConDestino(codigoCiudadOrigen, codigoCiudadDestino, 2, tipoVueloPermitido);
+        return Retorno.ok((int)ret.getEntero(), ret.getString());
     }
 
 }

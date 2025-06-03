@@ -36,10 +36,6 @@ public class GrafoImp{
             }
         }
 
-
-
-        //agregar el chequeo de null (crear conexiones vacias en la matriz)
-        //agregar to do lo de arista existe
     }
 
     public void registrarCiudad(String codigo, String nombre) {
@@ -176,57 +172,7 @@ public class GrafoImp{
         return ret.listarAscendente();
     }
 
-    public String dijkstraConDestino(String origen, String destino, int indice, TipoVueloPermitido tipo) {
-        boolean[] visitados = new boolean[maxCiudades];
-        double[] costos = new double[maxCiudades];
-        int[] anterior = new int[maxCiudades];
-
-        for (int i = 0; i < visitados.length; i++) {
-            costos[i] = Integer.MAX_VALUE;
-            anterior[i] = -1;
-        }
-
-        int posOrigen = obtenerPos(origen);
-        int posDestino = obtenerPos(destino);
-
-        costos[posOrigen] = 0;
-
-        for (int v = 0; v < cantidad; v++) {
-            int pos = ciudadNoVisitadaMenorCosto(costos, visitados);
-
-            if (pos != -1) {
-                visitados[pos] = true;
-
-                for (int i = 0; i < maxCiudades; i++) {
-                    if (conexiones[pos][i].isExiste() && !visitados[i]) {
-                        double costoNuevo = costos[pos] + conexiones[pos][i].getPesoMinimo(indice, tipo);
-                        if (costoNuevo < costos[i]) {
-                            costos[i] = costoNuevo;
-                            anterior[i] = pos;
-                        }
-                    }
-                }
-    }
-}
-        if (costos[posDestino] == Integer.MAX_VALUE){
-            return null;
-        }
-        double costo = costos[posDestino];
-        String camino = "";
-        int posAux = posDestino;
-        while (posAux != -1) {
-            camino = ciudades[posAux].toString() + camino;
-            posAux = anterior[posAux];
-        }
-
-        if(camino.isEmpty()){
-            return camino;
-        } else {
-            return camino.substring(0, camino.length() -1);
-        }
-    }
-
-    public double dijkstraConDestinoInt(String origen, String destino, int indice, TipoVueloPermitido tipo) {
+    public retornoDijkstra dijkstraConDestino(String origen, String destino, int indice, TipoVueloPermitido tipo) {
         boolean[] visitados = new boolean[maxCiudades];
         double[] costos = new double[maxCiudades];
         int[] anterior = new int[maxCiudades];
@@ -258,14 +204,21 @@ public class GrafoImp{
                 }
             }
         }
-
-        double costo = costos[posDestino];
         if (costos[posDestino] == Integer.MAX_VALUE){
-            return -1;
+            return null;
         }
-        return costos[posDestino];
+        double costo = costos[posDestino];
+        String camino = "";
+        int posAux = posDestino;
+        while (posAux != -1) {
+            camino = ciudades[posAux].toString() + camino;
+            posAux = anterior[posAux];
+        }
+        if(!camino.isEmpty()){
+            camino = camino.substring(0, camino.length() -1);
+        }
+        return new retornoDijkstra(camino,costos[posDestino]);
     }
-
     private int ciudadNoVisitadaMenorCosto(double[] costos, boolean[] visitados) {
         int posMin = -1;
         double min = Integer.MAX_VALUE;
@@ -278,43 +231,4 @@ public class GrafoImp{
         return posMin;
     }
 
-
-
-//    public String cantEscalas(int ESCALA, String ORIGEN){
-//        String retorno = "";
-//        int nivel= 0;
-//        boolean[] visitados = new boolean[maxCiudades];
-//        int posOrigen = obtenerPos(ORIGEN);
-//        ABB<Ciudad> ret = new ABBImp<Ciudad>(new ComparadorCiudad());
-//
-//
-//        Cola<Integer> cola = new ColaImp<Integer>();
-//        visitados[posOrigen] = true;
-//        cola.encolar(posOrigen);
-//        cola.encolar(-5);
-//
-//        while (!cola.esVacia() && nivel <= ESCALA) {
-//            //manejo el nivel actual
-//            int pos = cola.desencolar();
-//            if (pos == -5 && !cola.esVacia()){
-//                cola.encolar(-5);
-//                nivel++;
-//            }
-//            //hago algo
-//            ret.insertar(ciudades[pos]);
-//            for (int i = 0; i < conexiones.length; i++) {
-//                if (conexiones[pos][i].isExiste() && !visitados[i]) {
-//                    visitados[i] = true;
-//                    cola.encolar(i);
-//                }
-//            }
-//        }
-//
-//        if (retorno.isEmpty()){
-//            return retorno;
-//        } else {
-//            return retorno.substring(0, retorno.length() - 1);
-//        }
-//
-//    }
 }

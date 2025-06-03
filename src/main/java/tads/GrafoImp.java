@@ -96,7 +96,6 @@ public class GrafoImp{
         }
     }
 
-
     public int obtenerPosLibre() {
         for (int i = 0; i < ciudades.length; i++) {
             if (ciudades[i] == null) {
@@ -106,8 +105,6 @@ public class GrafoImp{
         return -1;
     }
 
-
-
     public boolean esLleno(){
         return cantidad == maxCiudades;
     }
@@ -115,7 +112,6 @@ public class GrafoImp{
         return cantidad == 0;
     }
 
-    //chequear
     public int obtenerPos(String codigoCiudad) {
         for (int i = 0; i < ciudades.length; i++) {
             if (ciudades[i] != null && ciudades[i].getCodigo().equals(codigoCiudad)) {
@@ -210,8 +206,8 @@ public class GrafoImp{
                         }
                     }
                 }
-            }
-        }
+    }
+}
         if (costos[posDestino] == Integer.MAX_VALUE){
             return null;
         }

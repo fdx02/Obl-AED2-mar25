@@ -1,14 +1,9 @@
 package sistema;
 
 import comparadores.*;
-import dominio.Conexion;
-import dominio.Viajero;
-import dominio.Vuelo;
+import dominio.*;
 import interfaz.*;
-import tads.ABB;
-import tads.ABBImp;
-import tads.GrafoImp;
-import tads.ListaImp;
+import tads.*;
 
 public class ImplementacionSistema implements Sistema  {
     private ABB<Viajero> viajerosCedula;
@@ -16,7 +11,7 @@ public class ImplementacionSistema implements Sistema  {
     private ABB<Viajero> viajerosEstandar;
     private ABB<Viajero> viajerosFrecuente;
     private ABB<Viajero> viajerosPlatino;
-    private ListaImp<ABBImp<Viajero>> viajerosRango;
+    private Lista<ABB<Viajero>> viajerosRango;
     private GrafoImp grafoCiudades;
 
     @Override
@@ -26,9 +21,10 @@ public class ImplementacionSistema implements Sistema  {
         viajerosEstandar = new ABBImp<Viajero>(new ComparadorViajeroCedula());
         viajerosFrecuente = new ABBImp<Viajero>(new ComparadorViajeroCedula());
         viajerosPlatino = new ABBImp<Viajero>(new ComparadorViajeroCedula());
-        viajerosRango = new ListaImp<ABBImp<Viajero>>(14);
+        //viajerosRango = new ListaImp<ABBImp<Viajero>>(14);
+        viajerosRango = new ListaImp<ABB<Viajero>>(14);
         for (int i = 0; i < viajerosRango.getMaxElementos(); i++) {
-            viajerosRango.agregar(new ABBImp<Viajero>(new ComparadorViajeroCedula()));
+            viajerosRango.agregarDesordenado(new ABBImp<Viajero>(new ComparadorViajeroCedula()));
         }
         if (maxCiudades > 4) {
             grafoCiudades = new GrafoImp(maxCiudades, true);

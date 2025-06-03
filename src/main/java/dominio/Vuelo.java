@@ -11,7 +11,7 @@ public class Vuelo implements Comparable<Vuelo>{
     double minutos;
     double costoEnDolares;
     TipoVuelo tipoVuelo;
-    TipoVueloPermitido tipoVueloPermitido;
+    String tipoVueloPermitido;
 
     public Vuelo() {
 
@@ -24,9 +24,15 @@ public class Vuelo implements Comparable<Vuelo>{
         minutos = MINUTOS;
         costoEnDolares = COSTO;
         tipoVuelo = TIPO;
+        tipoVueloPermitido = TIPO.getTexto();
+
+        //  TipoVueloPermitido(int indice, String texto) {
+        //        this.indice = indice;
+        //        this.texto = texto;
+        //    }
     }
     public Vuelo(TipoVueloPermitido TIPOVUELOPERMITIDO) {
-        tipoVueloPermitido = TIPOVUELOPERMITIDO;
+        tipoVueloPermitido = TIPOVUELOPERMITIDO.getTexto();
     }
 
     public Vuelo(String CODIGO){
@@ -90,11 +96,15 @@ public class Vuelo implements Comparable<Vuelo>{
         return tipoVuelo;
     }
 
-    public TipoVueloPermitido getTipoVueloPermitido() {
+    public String getTipoVueloPermitido() {
         return tipoVueloPermitido;
     }
 
     public void setTipoVuelo(TipoVuelo tipoVuelo) {
         this.tipoVuelo = tipoVuelo;
+    }
+
+    public void setTipoVueloPermitido(String tipoVueloPermitido) {
+        this.tipoVueloPermitido = tipoVueloPermitido;
     }
 }

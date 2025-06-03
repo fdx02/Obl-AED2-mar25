@@ -9,9 +9,9 @@ import tads.*;
 public class Conexion {
     private String codigoCiudadOrigen;
     private String codigoCiudadDestino;
-    private ABB<Vuelo> vuelos;
-    private ABB<Vuelo> vuelosMinutos;
-    private ABB<Vuelo> vuelosDolares;
+    private Lista<Vuelo> vuelos;
+    private Lista<Vuelo> vuelosMinutos;
+    private Lista<Vuelo> vuelosDolares;
 
     private boolean existe;
 
@@ -22,15 +22,15 @@ public class Conexion {
     public Conexion(String ORIGEN, String DESTINO){
         codigoCiudadOrigen = ORIGEN;
         codigoCiudadDestino = DESTINO;
-        vuelos = new ABBImp<Vuelo>(new ComparadorVueloCodigo());
-        vuelosMinutos = new ABBImp<Vuelo>(new ComparadorVueloMinutos());
-        vuelosDolares = new ABBImp<Vuelo>(new ComparadorVueloDolares());
+        vuelos = new ListaImp<Vuelo>(new ComparadorVueloCodigo(), Integer.MAX_VALUE);
+        vuelosMinutos = new ListaImp<Vuelo>(new ComparadorVueloMinutos(), Integer.MAX_VALUE);
+        vuelosDolares = new ListaImp<Vuelo>(new ComparadorVueloDolares(), Integer.MAX_VALUE);
     }
 
     public void agregarVuelo(Vuelo V){
-        vuelos.insertar(V);
-        vuelosMinutos.insertar(V);
-        vuelosDolares.insertar(V);
+        vuelos.agregar(V);
+        vuelosMinutos.agregar(V);
+        vuelosDolares.agregar(V);
     }
 
     public void actualizarVuelo(Vuelo V){
@@ -39,32 +39,21 @@ public class Conexion {
         aux.setMinutos(V.getMinutos());
         aux.setCostoEnDolares(V.getCostoEnDolares());
         aux.setTipoVuelo(V.getTipoVuelo());
-
-        Vuelo auxMinutos = vuelosMinutos.obtener(V);
-        auxMinutos.setCombustible(V.getCombustible());
-        auxMinutos.setMinutos(V.getMinutos());
-        auxMinutos.setCostoEnDolares(V.getCostoEnDolares());
-        auxMinutos.setTipoVuelo(V.getTipoVuelo());
-
-        Vuelo auxDolares = vuelosDolares.obtener(V);
-        auxDolares.setCombustible(V.getCombustible());
-        auxDolares.setMinutos(V.getMinutos());
-        auxDolares.setCostoEnDolares(V.getCostoEnDolares());
-        auxDolares.setTipoVuelo(V.getTipoVuelo());
+        aux.setTipoVueloPermitido(V.getTipoVueloPermitido());
     }
 
     public double getPesoMinimo(int indice, TipoVueloPermitido tipo) {
         Vuelo v;
-        if(vuelos.esVacio()){
+        if(vuelos.esVacia()){
             return Integer.MAX_VALUE;
         }
         if (indice == 1) {
-            v = this.vuelosMinutos.getMenor(new ComparadorVueloTipo(), new Vuelo(tipo));
+            v = this.vuelosMinutos.obtenerCondicion(new Vuelo(tipo), new ComparadorVueloTipo());
             if(v != null){
                 return v.getMinutos();
             }
         } else {
-            v = this.vuelosDolares.getMenor(new ComparadorVueloTipo(), new Vuelo(tipo));
+            v = this.vuelosDolares.obtenerCondicion(new Vuelo(tipo), new ComparadorVueloTipo());
             if(v != null){
                 return v.getCostoEnDolares();
             }
@@ -73,7 +62,7 @@ public class Conexion {
     }
 
     public boolean tieneVuelos(){
-        return !vuelos.esVacio();
+        return !vuelos.esVacia();
     }
 
     public boolean existeVuelo(String codigoVuelo){

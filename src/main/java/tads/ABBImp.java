@@ -1,8 +1,6 @@
 package tads;
 
 
-import dominio.Viajero;
-
 import java.util.Comparator;
 
 public class ABBImp<T extends Comparable<T>> implements ABB<T> {
@@ -23,7 +21,6 @@ public class ABBImp<T extends Comparable<T>> implements ABB<T> {
         } else {
             this.insertarRec(this.raiz, DATO);
         }
-
     }
 
     private void insertarRec(NodoABB<T> NODO, T DATO) {
@@ -225,4 +222,6 @@ public class ABBImp<T extends Comparable<T>> implements ABB<T> {
     private void cambiarComparador(Comparator<T> COMP){
         this.comp = COMP;
     }
+
+
 }

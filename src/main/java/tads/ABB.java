@@ -1,5 +1,7 @@
 package tads;
 
+import dominio.Viajero;
+
 import java.util.Comparator;
 
 public interface ABB<T> {
@@ -13,6 +15,7 @@ public interface ABB<T> {
     String listarCondicion(T DATO, Comparator<T> COMP);
     boolean esVacio();
     T getMenor(Comparator<T> COMP, T DATO);
+
 
     //String listarComparador(T DATO, Comparator<T> COMP);
 }
